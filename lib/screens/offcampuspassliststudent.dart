@@ -152,7 +152,7 @@ class _OffCampusPassListStudentState extends State<OffCampusPassListStudent> wit
                           const SizedBox(width: 50,),
                           Column(
                             children: [
-                              Text(data.name!, style: const TextStyle(fontSize: 20),),
+                              Text('${data.issuerName!}선생님 발급', style: const TextStyle(fontSize: 18),),
                               const SizedBox(height: 10,),
                               Text(data.reason!, style: const TextStyle(fontSize: 15),),
                             ],

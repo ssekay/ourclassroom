@@ -189,7 +189,7 @@ class _OffCampusPassWriteTeacherState extends State<OffCampusPassWriteTeacher> {
                             ),
                         ],
                       ),
-                      const SizedBox(height: 30,),
+                      const SizedBox(height: 20,),
                       Padding(
                         padding: const EdgeInsets.only(left: 20, right: 20),
                         child: TextFormField(
@@ -303,7 +303,7 @@ class _OffCampusPassWriteTeacherState extends State<OffCampusPassWriteTeacher> {
                         ],
                       ),
                       const SizedBox(
-                        height: 30,
+                        height: 20,
                       ),
                       ElevatedButton(
                           onPressed: (){

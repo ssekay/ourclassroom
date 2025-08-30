@@ -1,0 +1,2 @@
+/Users/ssekay/work/ourclassroom/android/app/.cxx/Debug/702a374n/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/ssekay/work/ourclassroom/android/app/.cxx/Debug/702a374n/arm64-v8a/CMakeFiles/rebuild_cache.dir

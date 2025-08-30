@@ -82,7 +82,6 @@ class ApiService {
       body: jsonEncode(data),
     );
     if (response.statusCode == 200) {
-      print(jsonDecode(response.body));
       return jsonDecode(response.body);
     } else {
       return {'success' : false, 'error' : response.statusCode};

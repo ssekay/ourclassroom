@@ -56,10 +56,10 @@ class OffCampusPassController extends GetxController {
       'reason' : offCampusPassData.reason,
       'starttime' : offCampusPassData.startTime!.toIso8601String(),
       'endtime' : offCampusPassData.endTime!.toIso8601String(),
-      'issuerGrade' : offCampusPassData.issuerGrade,
-      'issuerClass' : offCampusPassData.issuerClass,
-      'issuerNumber' : offCampusPassData.issuerNumber,
-      'issuerName' : offCampusPassData.issuerName,
+      'issuergrade' : offCampusPassData.issuerGrade,
+      'issuerclass' : offCampusPassData.issuerClass,
+      'issuernumber' : offCampusPassData.issuerNumber,
+      'issuername' : offCampusPassData.issuerName,
     };
     final response = await _apiService.postData(data);
     if (response['success']) {

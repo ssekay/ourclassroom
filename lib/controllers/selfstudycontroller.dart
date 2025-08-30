@@ -33,8 +33,8 @@ class SelfStudyController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    await fetchAllStudents();
     if(!Constants.currentUser.isNonHomeroomTeacher) {
-      await fetchAllStudents();
       await fetchSelfStudyData();
       await fetchSelfStudyDay();
     }
@@ -48,7 +48,7 @@ class SelfStudyController extends GetxController {
     final responseData = await _apiService.postData(postData);
     if (responseData['success']) {
       allStudents.clear();
-      for (var item in responseData['classStudents']) {
+      for (var item in responseData['allStudents']) {
         allStudents.add(item);
       }
     } else {

@@ -473,7 +473,7 @@ class _MenuListScreenState extends State<MenuListScreen> {
                               child: Icon(Icons.outbond_outlined, size: 20, color: Colors.deepPurpleAccent[200]!,))
                       ),
                       const SizedBox(width: 20,),
-                      const Text('외출증 발급',style: TextStyle(fontSize: 18),),
+                      const Text('외출증',style: TextStyle(fontSize: 18),),
                     ],
                   ),
                   const Text('외출증 보기',style: TextStyle(fontSize: 16, color: Colors.grey),)

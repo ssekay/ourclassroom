@@ -83,14 +83,14 @@ class _SelfStudyNonApplicantState extends State<SelfStudyNonApplicantTeacher> {
         iconTheme: IconThemeData(color: Colors.blue[200]),
       ),
       body: Obx(() {
+        print('학생수 : ${selfStudyController.allStudents.length}');
         if (selfStudyController.isLoadingSelfStudyData.value ||
             selfStudyController.isLoadingAllStudents.value) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (selfStudyController.allStudents.where((e) => e['grade'] == Constants.currentUser.grade
-            && e['class'] == Constants.currentUser.classNum).isEmpty) {
-          return const Center(child: Text('학급학생 명단이 없습니다.'),);
+        } else if (selfStudyController.allStudents.isEmpty) {
+          return const Center(child: Text('학생 명단이 없습니다.'),);
         } else {
           nonApplicantCalculate();
           return nonApplicant.isNotEmpty ? Center(
@@ -292,7 +292,7 @@ class _SelfStudyNonApplicantState extends State<SelfStudyNonApplicantTeacher> {
         .day && e.time!.month == DateTime
         .now()
         .month).toList();
-    final students = selfStudyController.allStudents.where((e) => e['grade'] == Constants.currentUser.grade && e['class'] == Constants.currentUser.classNum).toList();
+    final students = selfStudyController.allStudents.where((e) => e['grade'] == Constants.currentUser.grade.toString() && e['class'] == Constants.currentUser.classNum.toString()).toList();
     for (int i = 0; i < students.length; i++) {
       for (var item in data) {
         if (students[i]['name'] == item.name) {

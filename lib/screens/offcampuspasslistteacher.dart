@@ -218,7 +218,7 @@ class _OffCampusPassListTeacherState extends State<OffCampusPassListTeacher> wit
                       const SizedBox(width: 50,),
                       Column(
                         children: [
-                          Text(data.name!, style: const TextStyle(fontSize: 20),),
+                          Text('${data.grade}학년 ${data.classNum}반 ${data.name!}', style: const TextStyle(fontSize: 18),),
                           const SizedBox(height: 10,),
                           Text(data.reason!, style: const TextStyle(fontSize: 15),),
                         ],

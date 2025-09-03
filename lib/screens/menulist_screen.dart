@@ -17,6 +17,7 @@ import 'package:ourclassroom/screens/timetableteacher.dart';
 import '../utils/constants.dart';
 import 'classtimetableteacher.dart';
 import 'infouserandapp.dart';
+import 'news.dart';
 import 'offcampuspassliststudent.dart';
 import 'seatingchartstudent.dart';
 
@@ -66,6 +67,35 @@ class _MenuListScreenState extends State<MenuListScreen> {
                     ],
                   ),
                   const Text('다양한, 재미 있는',style: TextStyle(fontSize: 16, color: Colors.grey),)
+                ],
+              ),
+            ),
+            const SizedBox(height: 10,),
+            // 뉴스
+            GestureDetector(
+              onTap: () {
+                Get.to(() => News());
+              },
+              behavior: HitTestBehavior.opaque,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          child: Container(
+                              width: 35,
+                              height: 35,
+                              color: Colors.grey[200],
+                              child: const Icon(Icons.article_outlined, size: 25, color: Colors.blue,))
+                      ),
+                      const SizedBox(width: 20,),
+                      const Text('오늘의 뉴스',style: TextStyle(fontSize: 18),),
+                    ],
+                  ),
+                  const Text('청소년 뉴스',style: TextStyle(fontSize: 16, color: Colors.grey),)
                 ],
               ),
             ),

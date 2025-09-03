@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class HealthData {
   int? id;
@@ -379,13 +380,13 @@ class TimeTableData {
   };
 
   List<String> toValueList() => [
-    one == null ? '' : one!.replaceAll('.', '\n'),
-    two == null ? '' : two!.replaceAll('.', '\n'),
-    three == null ? '' : three!.replaceAll('.', '\n'),
-    four == null ? '' : four!.replaceAll('.', '\n'),
-    five == null ? '' : five!.replaceAll('.', '\n'),
-    six == null ? '' : six!.replaceAll('.', '\n'),
-    seven == null ? '' : seven!.replaceAll('.', '\n'),
+    one == null ? '' : one!.replaceAll('.', ''),
+    two == null ? '' : two!.replaceAll('.', ''),
+    three == null ? '' : three!.replaceAll('.', ''),
+    four == null ? '' : four!.replaceAll('.', ''),
+    five == null ? '' : five!.replaceAll('.', ''),
+    six == null ? '' : six!.replaceAll('.', ''),
+    seven == null ? '' : seven!.replaceAll('.', ''),
   ];
 }
 
@@ -676,6 +677,32 @@ class MealData {
   }
 }
 
+// 네이버 뉴스 데이터
+class News {
+  final String title;
+  final String originalLink;
+  final String link;
+  final String description;
+  final DateTime pubDate;
+
+  News({
+    required this.title,
+    required this.originalLink,
+    required this.link,
+    required this.description,
+    required this.pubDate,
+  });
+
+  factory News.fromJson(Map<String, dynamic> json) {
+    return News(
+      title: json['title'].toString().replaceAll(RegExp(r'</?b>'), ''),
+      originalLink: json['originallink'],
+      link: json['link'],
+      description: json['description'].toString().replaceAll(RegExp(r'</?b>'), ''),
+      pubDate: DateFormat('EEE, dd MMM yyyy HH:mm:ss Z').parse(json['pubDate']),
+    );
+  }
+}
 
 // 사용자 정보
 class CurrentUser {

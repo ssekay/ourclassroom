@@ -2,30 +2,28 @@ import 'package:get/get.dart';
 import '../models/models.dart'; // News 모델을 import 합니다.
 import '../services/api_service.dart';
 
-class NewsController extends GetxController {
+class NumbersController extends GetxController {
   var isLoading = true.obs;
-  var newsList = <News>[].obs;
+  var numbersText = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
-    fetchNewsData();
+    fetchNumbersData();
   }
 
-  void fetchNewsData() async {
+  void fetchNumbersData() async {
     try {
       isLoading(true);
-      final fetchedNewsItems = await ApiService.naverNewsData();
+      final fetchedNewsItems = await ApiService.numbersApi();
       if (fetchedNewsItems != null) {
-        for(var item in fetchedNewsItems) {
-          newsList.add(News.fromJson(item));
-        }
+        numbersText.value = fetchedNewsItems['text'];
       } else {
-        newsList.clear(); 
+        numbersText.value = '';
       }
     } catch (e) {
+      numbersText.value = '';
       Exception("오류 발생: $e");
-      newsList.clear();
     } finally {
       isLoading(false);
     }

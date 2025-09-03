@@ -75,7 +75,7 @@ class ApiService {
 
   // 네이버 뉴스 요청 - 반환 타입을 List<News>? 로 변경
   static Future<dynamic> naverNewsData() async {
-    final url = Uri.parse('$_naverNewsBaseUrl?query=인문, 사회, 과학, 경제 분야 최신뉴스&display=10'); // display=10 추가
+    final url = Uri.parse('$_naverNewsBaseUrl?query=최신뉴스&display=20&sort=date'); // display=10 추가
     try {
       final response = await http.get(
         url,
@@ -98,6 +98,28 @@ class ApiService {
       // Get.snackbar나 다른 방식으로 오류를 사용자에게 알릴 수 있습니다.
       // print('Failed to fetch news data: $e'); 
       throw Exception('Failed to fetch news data: $e');
+    }
+  }
+
+  // 네이버 뉴스 요청 - 반환 타입을 List<News>? 로 변경
+  static Future<dynamic> numbersApi() async {
+    final url = Uri.parse('http://numbersapi.com/42/math?json');
+    try {
+      final response = await http.get(url);
+      print('response : ${response.contentLength}');
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+        print('numbers : $data');
+        if (data.isNotEmpty) {
+          return data;
+        } else {
+          return []; // items가 없으면 빈 리스트 반환
+        }
+      } else {
+        return null; // 오류 발생 시 null 반환
+      }
+    } catch (e) {
+      throw Exception('Failed to fetch data: $e');
     }
   }
 

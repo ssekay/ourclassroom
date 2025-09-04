@@ -102,8 +102,8 @@ class ApiService {
   }
 
   // 네이버 뉴스 요청 - 반환 타입을 List<News>? 로 변경
-  static Future<dynamic> numbersApi() async {
-    final url = Uri.parse('http://numbersapi.com/42/math?json');
+  static Future<dynamic> numbersApi(String numbers) async {
+    final url = Uri.parse('http://numbersapi.com/$numbers?json');
     try {
       final response = await http.get(url);
       print('response : ${response.contentLength}');

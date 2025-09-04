@@ -106,10 +106,8 @@ class ApiService {
     final url = Uri.parse('http://numbersapi.com/$numbers?json');
     try {
       final response = await http.get(url);
-      print('response : ${response.contentLength}');
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
-        print('numbers : $data');
         if (data.isNotEmpty) {
           return data;
         } else {

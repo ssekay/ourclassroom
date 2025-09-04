@@ -5,7 +5,7 @@ class NumbersController extends GetxController {
   var isLoading = true.obs;
   var numbersText = ''.obs;
 
-  void fetchNumbersData(String numbers) async {
+  Future<void> fetchNumbersData(String numbers) async {
     try {
       isLoading(true);
       final fetchedNewsItems = await ApiService.numbersApi(numbers);

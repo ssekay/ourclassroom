@@ -129,6 +129,7 @@ class _RepairApplyTeacherState extends State<RepairApplyTeacher> {
                   ),
                   child: const Text('신청'),
                 ),
+                const SizedBox(width: 20),
               ],
             ),
           ]),

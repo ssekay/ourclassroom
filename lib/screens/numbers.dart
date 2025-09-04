@@ -4,6 +4,7 @@ import 'package:flutter/services.dart'; // For inputFormatters
 import 'package:get/get.dart';
 
 import '../controllers/numberscontroller.dart';
+import '../services/snackbar_service.dart';
 
 enum SelectionType {
   number,
@@ -29,25 +30,28 @@ class Numbers extends StatefulWidget {
 }
 
 class _NumbersState extends State<Numbers> {
-  final NumbersController controller = Get.put(NumbersController());
+  final NumbersController numbersController = Get.put(NumbersController());
+  final SnackBarService snackBarService = SnackBarService();
   SelectionType _selectedType = SelectionType.number; // 기본 선택
 
-  final TextEditingController _numberController = TextEditingController();
-  final TextEditingController _monthController = TextEditingController();
-  final TextEditingController _dayController = TextEditingController();
+  final TextEditingController _numberTextController = TextEditingController();
+  final TextEditingController _monthTextController = TextEditingController();
+  final TextEditingController _dayTextController = TextEditingController();
+
+  bool isValid = false;
 
   @override
   void dispose() {
-    _numberController.dispose();
-    _monthController.dispose();
-    _dayController.dispose();
+    _numberTextController.dispose();
+    _monthTextController.dispose();
+    _dayTextController.dispose();
     super.dispose();
   }
 
   Widget _buildNumberTextField() {
     return TextField(
       textAlign: TextAlign.center,
-      controller: _numberController,
+      controller: _numberTextController,
       keyboardType: TextInputType.number,
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
@@ -62,11 +66,11 @@ class _NumbersState extends State<Numbers> {
           int? num = int.tryParse(value);
           if (num != null) {
             if (num < 1 && value.length == 1) {
-              _numberController.clear();
+              _numberTextController.clear();
             } else if (num > 9999) {
-              _numberController.text = '9999';
-              _numberController.selection = TextSelection.fromPosition(
-                  TextPosition(offset: _numberController.text.length));
+              _numberTextController.text = '9999';
+              _numberTextController.selection = TextSelection.fromPosition(
+                  TextPosition(offset: _numberTextController.text.length));
             }
           }
         }
@@ -75,66 +79,62 @@ class _NumbersState extends State<Numbers> {
   }
 
   Widget _buildMonthTextField() {
-    return Expanded(
-      child: TextField(
-        textAlign: TextAlign.center,
-        controller: _monthController,
-        keyboardType: TextInputType.number,
-        inputFormatters: [
-          FilteringTextInputFormatter.digitsOnly,
-          LengthLimitingTextInputFormatter(2), // 1-12
-        ],
-        decoration: const InputDecoration(
-          labelText: '월 (1-12)',
-          border: OutlineInputBorder(),
-        ),
-        onChanged: (value) {
-          if (value.isNotEmpty) {
-            int? month = int.tryParse(value);
-            if (month != null) {
-              if (month < 1 && value.length <= 2) { // Allow '0' temporarily for typing '01' etc.
-                 if(value != '0') _monthController.clear();
-              } else if (month > 12) {
-                _monthController.text = '12';
-                 _monthController.selection = TextSelection.fromPosition(
-                    TextPosition(offset: _monthController.text.length));
-              }
+    return TextField(
+      textAlign: TextAlign.center,
+      controller: _monthTextController,
+      keyboardType: TextInputType.number,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(2), // 1-12
+      ],
+      decoration: const InputDecoration(
+        labelText: '월 (1-12)',
+        border: OutlineInputBorder(),
+      ),
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          int? month = int.tryParse(value);
+          if (month != null) {
+            if (month < 1 && value.length <= 2) { // Allow '0' temporarily for typing '01' etc.
+               if(value != '0') _monthTextController.clear();
+            } else if (month > 12) {
+              _monthTextController.text = '12';
+               _monthTextController.selection = TextSelection.fromPosition(
+                  TextPosition(offset: _monthTextController.text.length));
             }
           }
-        },
-      ),
+        }
+      },
     );
   }
 
   Widget _buildDayTextField() {
-    return Expanded(
-      child: TextField(
-        textAlign: TextAlign.center,
-        controller: _dayController,
-        keyboardType: TextInputType.number,
-        inputFormatters: [
-          FilteringTextInputFormatter.digitsOnly,
-          LengthLimitingTextInputFormatter(2), // 1-31
-        ],
-        decoration: const InputDecoration(
-          labelText: '일 (1-31)',
-          border: OutlineInputBorder(),
-        ),
-        onChanged: (value) {
-          if (value.isNotEmpty) {
-            int? day = int.tryParse(value);
-            if (day != null) {
-              if (day < 1 && value.length <=2) { // Allow '0' temporarily
-                if(value != '0') _dayController.clear();
-              } else if (day > 31) {
-                _dayController.text = '31';
-                _dayController.selection = TextSelection.fromPosition(
-                    TextPosition(offset: _dayController.text.length));
-              }
+    return TextField(
+      textAlign: TextAlign.center,
+      controller: _dayTextController,
+      keyboardType: TextInputType.number,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(2), // 1-31
+      ],
+      decoration: const InputDecoration(
+        labelText: '일 (1-31)',
+        border: OutlineInputBorder(),
+      ),
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          int? day = int.tryParse(value);
+          if (day != null) {
+            if (day < 1 && value.length <=2) { // Allow '0' temporarily
+              if(value != '0') _dayTextController.clear();
+            } else if (day > 31) {
+              _dayTextController.text = '31';
+              _dayTextController.selection = TextSelection.fromPosition(
+                  TextPosition(offset: _dayTextController.text.length));
             }
           }
-        },
-      ),
+        }
+      },
     );
   }
 
@@ -163,16 +163,16 @@ class _NumbersState extends State<Numbers> {
                   onPressed: (int index) {
                     setState(() {
                       _selectedType = SelectionType.values[index];
-                      _numberController.clear();
-                      _monthController.clear();
-                      _dayController.clear();
+                      _numberTextController.clear();
+                      _monthTextController.clear();
+                      _dayTextController.clear();
                     });
                   },
                   borderRadius: BorderRadius.circular(8.0),
-                  selectedBorderColor: Theme.of(context).primaryColor,
+                  selectedBorderColor: Colors.blue,
                   selectedColor: Colors.white,
-                  fillColor: Theme.of(context).primaryColor,
-                  color: Theme.of(context).primaryColor,
+                  fillColor: Colors.blue,
+                  color: Colors.blue,
                   constraints: BoxConstraints(
                     minHeight: 40.0,
                     minWidth: (MediaQuery.of(context).size.width - 48) / 2,
@@ -180,12 +180,12 @@ class _NumbersState extends State<Numbers> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Text(SelectionType.number.displayName),
-                    ),
+                      child: Text(SelectionType.number.displayName, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Text(SelectionType.date.displayName),
-                    ),
+                      child: Text(SelectionType.date.displayName, style: const TextStyle(fontSize:16, fontWeight: FontWeight.bold),
+                    ),),
                   ],
                 ),
                 const SizedBox(height: 30),
@@ -202,45 +202,59 @@ class _NumbersState extends State<Numbers> {
                   ),
                 const SizedBox(height: 30),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     FocusScope.of(context).unfocus(); // 버튼 클릭 시 포커스 아웃
                     String valueToProcess = '';
-                    bool isValid = true;
                     if (_selectedType == SelectionType.number) {
-                      if (_numberController.text.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('숫자를 입력해주세요.')),
-                        );
+                      if (_numberTextController.text.isEmpty) {
+                        snackBarService.showCustomSnackBar('숫자를 입력해주세요.', Colors.orange[200]!);
                         isValid = false;
                       } else {
-                        valueToProcess = '숫자: ${_numberController.text}';
+                        valueToProcess = _numberTextController.text;
+                        isValid = true;
                       }
                     } else { // SelectionType.date
-                      if (_monthController.text.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('월을 입력해주세요.')),
-                        );
+                      if (_monthTextController.text.isEmpty) {
+                        snackBarService.showCustomSnackBar('월을 입력해주세요.', Colors.orange[200]!);
                         isValid = false;
-                      } else if (_dayController.text.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('일을 입력해주세요.')),
-                        );
+                      } else if (_dayTextController.text.isEmpty) {
+                        snackBarService.showCustomSnackBar('일을 입력해주세요.', Colors.orange[200]!);
                         isValid = false;
                       } else {
-                        valueToProcess = '날짜: ${_monthController.text}월 ${_dayController.text}일';
+                        valueToProcess = '${_monthTextController.text}/${_dayTextController.text}';
+                        isValid = true;
                       }
                     }
-
                     if (isValid) {
-                      // For demonstration, show a snackbar with the processed value
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('입력된 값: $valueToProcess')),
-                      );
-                      // 여기에 controller.someMethod(valueToProcess) 와 같이 데이터 처리 로직 추가 가능
+                      if(_selectedType == SelectionType.number) {
+                        await numbersController.fetchNumbersData('$valueToProcess/math');
+                        _numberTextController.clear();
+                      } else{
+                        await numbersController.fetchNumbersData('$valueToProcess/date');
+                        _monthTextController.clear();
+                        _dayTextController.clear();
+                      }
                     }
                   },
                   child: const Text('확인'),
-                )
+                ),
+                const SizedBox(height: 50),
+                if(isValid) Obx((){
+                  if(numbersController.isLoading.value){
+                    return const CircularProgressIndicator();
+                  } else{
+                    return Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.blue[200],
+                          borderRadius: const BorderRadius.all(Radius.circular(
+                              15)),
+                        ),
+                      child: Text(numbersController.numbersText.value, style: const TextStyle(fontSize: 18))
+                    );
+                  }
+                })
+
               ],
             ),
           )),

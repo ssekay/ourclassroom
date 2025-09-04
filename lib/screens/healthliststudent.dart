@@ -59,16 +59,6 @@ class _HealthListStudentState extends State<HealthListStudent> {
                 itemCount: dataList.length,
                 itemBuilder: (context, index) {
                   final data = dataList[index];
-                  // 보건증 발급 활성화 후 사용
-                  // if (data.therapy == '투약') {
-                  //   medication = data.medication1.toString();
-                  //   if (data.medication2 != '') {
-                  //     medication = '$medication, ${data.medication2}';
-                  //   }
-                  //   if (data.medication3 != '') {
-                  //     medication = '$medication, ${data.medication3}';
-                  //   }
-                  // }
                   return Padding(
                     padding: const EdgeInsets.all(10),
                     child: Container(

@@ -704,6 +704,99 @@ class News {
   }
 }
 
+// 봉사자료
+class VolunteerActivityData {
+  final int? id;
+  final String division1;
+  final String division2;
+  final DateTime startTime;
+  final DateTime endTime;
+  final String division3;
+  final String activityLocation;
+  final String activityDetails;
+  final int grade;
+  final int classNumber;
+  final int number;
+  final String name;
+  final int recognizedTime;
+  final DateTime dateOfIssuance;
+  final int instructorGrade;
+  final int instructorClass;
+  final int instructorNumber;
+  final String instructorName;
+  final DateTime time;
+
+  VolunteerActivityData({
+    this.id,
+    required this.division1,
+    required this.division2,
+    required this.startTime,
+    required this.endTime,
+    required this.division3,
+    required this.activityLocation,
+    required this.activityDetails,
+    required this.grade,
+    required this.classNumber,
+    required this.number,
+    required this.name,
+    required this.recognizedTime,
+    required this.dateOfIssuance,
+    required this.instructorGrade,
+    required this.instructorClass,
+    required this.instructorNumber,
+    required this.instructorName,
+    required this.time,
+  });
+
+  factory VolunteerActivityData.fromJson(Map<String, dynamic> json) {
+    return VolunteerActivityData(
+      id: int.parse(json['id']),
+      division1: json['division1'],
+      division2: json['division2'],
+      startTime: DateTime.parse(json['starttime']),
+      endTime: DateTime.parse(json['endtime']),
+      division3: json['division3'],
+      activityLocation: json['activitylocation'],
+      activityDetails: json['activitydetails'],
+      grade: int.parse(json['grade']),
+      classNumber: int.parse(json['class']),
+      number: int.parse(json['number']),
+      name: json['name'],
+      recognizedTime: int.parse(json['recognizedtime']),
+      dateOfIssuance: DateTime.parse(json['dateofissuance']),
+      instructorGrade: int.parse(json['instructorgrade']),
+      instructorClass: int.parse(json['instructorclass']),
+      instructorNumber: int.parse(json['instructornumber']),
+      instructorName: json['instructorname'],
+      time: DateTime.parse(json['time']),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'division1': division1,
+      'division2': division2,
+      'starttime': startTime.toIso8601String().substring(0, 19).replaceFirst('Z', ' '),
+      'endtime': endTime.toIso8601String().substring(0, 19).replaceFirst('Z', ' '),
+      'division3': division3,
+      'activitylocation': activityLocation,
+      'activitydetails': activityDetails,
+      'grade': grade,
+      'class': classNumber,
+      'number': number,
+      'name': name,
+      'recognizedtime': recognizedTime,
+      'dateofissuance': dateOfIssuance.toIso8601String().substring(0, 19).replaceFirst('Z', ' '),
+      'instructorgrade': instructorGrade,
+      'instructorclass': instructorClass,
+      'instructornumber': instructorNumber,
+      'instructorname': instructorName,
+      'time': time.toIso8601String(),
+    };
+  }
+}
+
 // 사용자 정보
 class CurrentUser {
   int? grade;

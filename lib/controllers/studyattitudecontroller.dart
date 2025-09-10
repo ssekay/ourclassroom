@@ -111,23 +111,23 @@ class StudyAttitudeController extends GetxController {
     isInsertLoading.value = false;
   }
 
-  Future<void> deletePraiseData(int id) async {
-    isDeleteLoading.value = true;
-    Map<String, dynamic> postData = {
-      'action': 'delete_studyattitude_data', // Pass action in the body
-      'id': id,
-    };
-    final responseData = await _apiService.postData(postData);
-    if (responseData['success']) {
-      await fetchStudyAttitudeData();
-      snackBarService.showCustomSnackBar(responseData['message'], Colors.green[200]!);
-    } else {
-      if(responseData.containsKey('error')){
-        snackBarService.showCustomSnackBar(responseData['error'], Colors.orange[200]!);
-      }else{
-        snackBarService.showCustomSnackBar(responseData['message'], Colors.orange[200]!);
-      }
-    }
-    isDeleteLoading.value = false;
-  }
+  // Future<void> deletePraiseData(int id) async {
+  //   isDeleteLoading.value = true;
+  //   Map<String, dynamic> postData = {
+  //     'action': 'delete_studyattitude_data', // Pass action in the body
+  //     'id': id,
+  //   };
+  //   final responseData = await _apiService.postData(postData);
+  //   if (responseData['success']) {
+  //     await fetchStudyAttitudeData();
+  //     snackBarService.showCustomSnackBar(responseData['message'], Colors.green[200]!);
+  //   } else {
+  //     if(responseData.containsKey('error')){
+  //       snackBarService.showCustomSnackBar(responseData['error'], Colors.orange[200]!);
+  //     }else{
+  //       snackBarService.showCustomSnackBar(responseData['message'], Colors.orange[200]!);
+  //     }
+  //   }
+  //   isDeleteLoading.value = false;
+  // }
 }

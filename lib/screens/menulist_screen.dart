@@ -105,7 +105,7 @@ class _MenuListScreenState extends State<MenuListScreen> {
               // 뉴스
               GestureDetector(
                 onTap: () {
-                  Get.to(() => News());
+                  Get.to(() => const News());
                 },
                 behavior: HitTestBehavior.opaque,
                 child: Row(
@@ -126,7 +126,7 @@ class _MenuListScreenState extends State<MenuListScreen> {
                         const Text('오늘의 뉴스',style: TextStyle(fontSize: 18),),
                       ],
                     ),
-                    const Text('청소년 뉴스',style: TextStyle(fontSize: 16, color: Colors.grey),)
+                    const Text('사설 검색',style: TextStyle(fontSize: 16, color: Colors.grey),)
                   ],
                 ),
               ),
@@ -485,6 +485,64 @@ class _MenuListScreenState extends State<MenuListScreen> {
               ),
             ),
             const SizedBox(height: 10,),
+            // 수를 알아봐.
+            GestureDetector(
+              onTap: () {
+                Get.to(() => const Numbers());
+              },
+              behavior: HitTestBehavior.opaque,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          child: Container(
+                              width: 35,
+                              height: 35,
+                              color: Colors.grey[200],
+                              child: const Icon(Icons.numbers_outlined, size: 25, color: Colors.redAccent,))
+                      ),
+                      const SizedBox(width: 20,),
+                      const Text('수를 알아봐',style: TextStyle(fontSize: 18),),
+                    ],
+                  ),
+                  const Text('숫자란?',style: TextStyle(fontSize: 16, color: Colors.grey),)
+                ],
+              ),
+            ),
+            const SizedBox(height: 10,),
+            // 뉴스
+            GestureDetector(
+              onTap: () {
+                Get.to(() => News());
+              },
+              behavior: HitTestBehavior.opaque,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          child: Container(
+                              width: 35,
+                              height: 35,
+                              color: Colors.grey[200],
+                              child: const Icon(Icons.article_outlined, size: 25, color: Colors.blue,))
+                      ),
+                      const SizedBox(width: 20,),
+                      const Text('오늘의 뉴스',style: TextStyle(fontSize: 18),),
+                    ],
+                  ),
+                  const Text('사설 검색',style: TextStyle(fontSize: 16, color: Colors.grey),)
+                ],
+              ),
+            ),
+            const SizedBox(height: 10,),
             // 오늘의 급식
             GestureDetector(
               onTap: () {
@@ -593,7 +651,7 @@ class _MenuListScreenState extends State<MenuListScreen> {
                               child: Icon(Icons.chair_outlined, size: 20, color: Colors.green[300]!,))
                       ),
                       const SizedBox(width: 20,),
-                      const Text('햑급좌석표',style: TextStyle(fontSize: 18),),
+                      const Text('학급좌석표',style: TextStyle(fontSize: 18),),
                     ],
                   ),
                   const Text('실시간',style: TextStyle(fontSize: 16, color: Colors.grey),)

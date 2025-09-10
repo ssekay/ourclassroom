@@ -6,16 +6,10 @@ class NewsController extends GetxController {
   var isLoading = true.obs;
   var newsList = <News>[].obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    fetchNewsData();
-  }
-
-  void fetchNewsData() async {
+  void fetchNewsData(String query) async {
     try {
       isLoading(true);
-      final fetchedNewsItems = await ApiService.naverNewsData();
+      final fetchedNewsItems = await ApiService.naverNewsData(query);
       if (fetchedNewsItems != null) {
         for(var item in fetchedNewsItems) {
           newsList.add(News.fromJson(item));

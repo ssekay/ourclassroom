@@ -74,8 +74,8 @@ class ApiService {
   }
 
   // 네이버 뉴스 요청 - 반환 타입을 List<News>? 로 변경
-  static Future<dynamic> naverNewsData() async {
-    final url = Uri.parse('$_naverNewsBaseUrl?query=최신뉴스&display=20&sort=date'); // display=10 추가
+  static Future<dynamic> naverNewsData(String query) async {
+    final url = Uri.parse('$_naverNewsBaseUrl?query=$query&display=10&sort=date'); // display=10 추가
     try {
       final response = await http.get(
         url,

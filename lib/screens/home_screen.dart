@@ -9,6 +9,7 @@ import 'health_screen.dart';
 import 'praise_screen.dart';
 import 'selfstudy_screen.dart';
 import 'menulist_screen.dart';
+import 'volunteeractivity_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -32,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 PraiseScreen(),
                 SelfStudyScreen(),
                 HealthScreen(),
+                VolunteerActivityScreen(),
                 AttendanceScreen(),
                 MenuListScreen(),
               ],
@@ -62,6 +64,12 @@ class _HomeScreenState extends State<HomeScreen> {
               BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.bandage),
                 label: '보건',
+                backgroundColor: Colors.blue,
+                // ...
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.heart_fill),
+                label: '봉사',
                 backgroundColor: Colors.blue,
                 // ...
               ),

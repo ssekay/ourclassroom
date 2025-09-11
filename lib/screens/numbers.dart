@@ -243,14 +243,33 @@ class _NumbersState extends State<Numbers> {
                   if(numbersController.isLoading.value){
                     return const CircularProgressIndicator();
                   } else{
-                    return Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.blue[200],
-                          borderRadius: const BorderRadius.all(Radius.circular(
-                              15)),
+                    return Column(
+                      children: [
+                        GestureDetector(
+                          onLongPress: () {
+                            Clipboard.setData(ClipboardData(text : numbersController.numbersText.value));
+                          },
+                          onDoubleTap: () {
+                            setState(() {
+                              isValid = false;
+                              numbersController.numbersText.value = '';
+                            });
+                          },
+                          child: Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Colors.blue[200],
+                                borderRadius: const BorderRadius.all(Radius.circular(
+                                    15)),
+                              ),
+                            child: Text(numbersController.numbersText.value, style: const TextStyle(fontSize: 18))
+                          ),
                         ),
-                      child: Text(numbersController.numbersText.value, style: const TextStyle(fontSize: 18))
+                        const SizedBox(height: 20),
+                        const Text('길게 누르면 클립보드에 복사됩니다.', style: TextStyle(fontSize: 14, color: Colors.blueGrey)),
+                        const SizedBox(height: 10),
+                        const Text('더블탭하면 처음 화면으로 돌아갑니다.', style: TextStyle(fontSize: 14, color: Colors.blueGrey)),
+                      ],
                     );
                   }
                 })

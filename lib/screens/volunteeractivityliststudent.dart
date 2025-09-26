@@ -52,31 +52,52 @@ class _VolunteerActivityListStudentState extends State<VolunteerActivityListStud
               child: Text('자료가 없습니다.'),
             );
           } else {
-            return ListView.builder(
-                itemCount: dataList.length,
-                itemBuilder: (context, index) {
-                  final data = dataList[index];
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10, bottom: 2),
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
-                      decoration: BoxDecoration(
-                        color: Colors.blue[200],
-                        borderRadius: const BorderRadius.all(Radius.circular(
-                            15)),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('기간 : ${DateFormat('M월 d일(E)', 'ko_KR').format(data.startTime)} - ${DateFormat('M월 d일(E)', 'ko_KR').format(data.endTime)}', style: const TextStyle(fontSize: 14)),
-                          Text('내용 : ${data.activityDetails}', style: const TextStyle(fontSize: 14), overflow: TextOverflow.visible,),
-                          Text('시간 : ${data.recognizedTime.toString()}', style: const TextStyle(fontSize: 14)),
-                          Text('확인 : ${data.instructorName}선생님', style: const TextStyle(fontSize: 14))
-                        ],
-                      ),
+            final totalRecognizedTime = dataList.fold(0, (previousSum, element) => previousSum + element.recognizedTime);
+
+            return Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                      color: Colors.blue,
+                      width: 1.0,
                     ),
-                  );
-                });
+                    borderRadius: const BorderRadius.all(
+                        Radius.circular(15)),
+                  ),
+                  child: Text('총 봉사 시간 : ${totalRecognizedTime.toString()}', style: const TextStyle(fontSize: 13),),),
+                const SizedBox(height: 10,),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: dataList.length,
+                      itemBuilder: (context, index) {
+                        final data = dataList[index];
+                         return Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 2),
+                          child: Container(
+                            padding: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
+                            decoration: BoxDecoration(
+                              color: Colors.blue[200],
+                              borderRadius: const BorderRadius.all(Radius.circular(
+                                  15)),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('기간 : ${DateFormat('M월 d일(E)', 'ko_KR').format(data.startTime)} - ${DateFormat('M월 d일(E)', 'ko_KR').format(data.endTime)}', style: const TextStyle(fontSize: 14)),
+                                Text('내용 : ${data.activityDetails}', style: const TextStyle(fontSize: 14), overflow: TextOverflow.visible,),
+                                Text('시간 : ${data.recognizedTime.toString()}', style: const TextStyle(fontSize: 14)),
+                                Text('확인 : ${data.instructorName}선생님', style: const TextStyle(fontSize: 14))
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                ),
+              ],
+            );
           }}
       }),
     );
